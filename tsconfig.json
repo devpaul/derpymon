@@ -17,12 +17,11 @@
 		"outDir": "_build/",
 		"removeComments": false,
 		"sourceMap": true,
+		"strict": true,
 		"strictNullChecks": true,
-		"target": "es5",
-		"types": [ "intern" ]
+		"target": "es5"
 	},
 	"include": [
-		"./typings/index.d.ts",
 		"./src/**/*.ts",
 		"./tests/**/*.ts"
 	]
