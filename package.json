@@ -4,6 +4,7 @@
   "license": "MPL-2.0",
   "scripts": {
     "build": "dojo build",
+    "serve": "ts-node ./support/webserv",
     "watch": "dojo build -w"
   },
   "dependencies": {
@@ -27,10 +28,14 @@
     "@types/glob": "~5.0.0",
     "@types/grunt": "~0.4.0",
     "@types/node": "^6.0.46",
+    "@types/opn": "^3.0.28",
     "@types/sinon": "^1.16.35",
     "chai": "^3.5.0",
     "intern": "~3.4.1",
+    "opn": "^5.1.0",
     "sinon": "^2.0.0",
-    "typescript": "^2.4.2"
+    "ts-node": "^3.3.0",
+    "typescript": "^2.4.2",
+    "webserv": "^0.10.0"
   }
 }
