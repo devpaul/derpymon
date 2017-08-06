@@ -1,5 +1,5 @@
 import { registry } from '@dojo/widget-core/d';
-import { BaseInjector, Injector } from '@dojo/widget-core/Injector';
+import { BaseInjector, Context, Injector } from '@dojo/widget-core/Injector';
 
 export const enum Monster {
 	CharDerp = 'charDerp'
@@ -12,5 +12,13 @@ export function initialize() {
 		mtl: '#charderp-mtl'
 	};
 
-	registry.define(Monster.CharDerp, Injector(BaseInjector, charDerp));
+	registry.define(Monster.CharDerp, Injector(BaseInjector, new Context(charDerp)));
+}
+
+export function characterMapper() {
+	return {
+		getProperties(context: any, properties: any): any {
+			return context.get();
+		}
+	}
 }

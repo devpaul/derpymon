@@ -3,20 +3,16 @@ import { DNode, WidgetProperties } from '@dojo/widget-core/interfaces';
 import { WidgetBase } from '@dojo/widget-core/WidgetBase';
 import { Container } from '@dojo/widget-core/Container';
 import ObjModel from '../framework/ObjModel';
-import { Monster } from '../commands/initialize/characters';
+import { characterMapper, Monster } from '../commands/initialize/characters';
 
 export interface OutsideProperties extends WidgetProperties {
 	monster: Monster;
 }
 
-function getProperties(context: any, properties: any): any {
-	return context;
-}
-
 export default class Outside extends WidgetBase<OutsideProperties> {
 	protected render(): DNode {
 		const { monster } = this.properties;
-		const Derpymon = Container(ObjModel, monster, { getProperties });
+		const Derpymon = Container(ObjModel, monster, characterMapper());
 
 		return v('a-entity', [
 			v('a-plane', {
