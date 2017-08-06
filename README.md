@@ -2,8 +2,11 @@
 
 Catch derpy monsters in VR
 
+NOTE: This does not currently work without a modified version of Maquette
+
 ## Quickstart
 
 * npm i
 * dojo build --watch
-* http://localhost:9999
+* npm run serve
+* http://localhost:8888

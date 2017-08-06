@@ -1,25 +1,36 @@
-import { v } from '@dojo/widget-core/d';
+import { v, w } from '@dojo/widget-core/d';
 import { DNode, WidgetProperties } from '@dojo/widget-core/interfaces';
-import { theme, ThemeableMixin } from '@dojo/widget-core/mixins/Themeable';
 import { WidgetBase } from '@dojo/widget-core/WidgetBase';
+import { Container } from '@dojo/widget-core/Container';
+import ObjModel from '../framework/ObjModel';
+import { Monster } from '../commands/initialize/characters';
 
 export interface OutsideProperties extends WidgetProperties {
+	monster: Monster;
 }
 
-export const OutsideBase = ThemeableMixin(WidgetBase);
+function getProperties(context: any, properties: any): any {
+	return context;
+}
 
-@theme({})
-export default class Outside extends OutsideBase<OutsideProperties> {
+export default class Outside extends WidgetBase<OutsideProperties> {
 	protected render(): DNode {
+		const { monster } = this.properties;
+		const Derpymon = Container(ObjModel, monster, { getProperties });
+
 		return v('a-entity', [
 			v('a-plane', {
 				color: '#258e26',
-				height: '20',
+				height: '100',
 				rotation: '-90 0 0',
-				width: '20'
+				width: '100'
 			}),
 			v('a-sky', {
 				color: '#859cff'
+			}),
+			w(Derpymon, {
+				position: '2 -3 -10',
+				scale: '0.5 0.5 0.5'
 			})
 		]);
 	}
