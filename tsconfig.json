@@ -12,7 +12,8 @@
 			"es2015.iterable",
 			"es2015.symbol",
 			"es2015.symbol.wellknown",
-			"esnext.asynciterable"
+			"esnext.asynciterable",
+			"es2015.core"
 		],
 		"module": "umd",
 		"moduleResolution": "node",

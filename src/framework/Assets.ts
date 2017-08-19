@@ -13,8 +13,15 @@ export interface AssetProperties extends WidgetProperties {
 
 export default class Assets extends WidgetBase<AssetProperties> {
 	protected render(): DNode {
-		return v('a-assets', this.properties.assets.map((asset) => {
-			return v('a-asset-item', asset);
-		}));
+		const assets = this.properties.assets.map((asset) => {
+			const props = Object.assign({
+				delayAttach: true
+			}, asset);
+			return v('a-asset-item', props);
+		});
+
+		return v('a-assets', {
+			delayAttach: true
+		}, assets);
 	}
 }
