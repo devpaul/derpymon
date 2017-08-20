@@ -3,20 +3,37 @@ import { DNode, WidgetProperties } from '@dojo/widget-core/interfaces';
 import { WidgetBase } from '@dojo/widget-core/WidgetBase';
 import Outside from './stages/Outside';
 import Assets from './framework/Assets';
-import { Monster } from './commands/initialize/characters';
+import { genericMapper, Monster, monsters } from './commands/initialize/characters';
+import { Container } from '@dojo/widget-core/Container';
 
 export default class App extends WidgetBase<WidgetProperties> {
+	monster = this.selectMonster();
+
 	protected render(): DNode {
+		const AssetEntity = Container(Assets, 'assets', genericMapper());
+
 		return v('a-scene', [
-			w(Assets, {
-				assets: [
-					{ id: 'charderp-obj', src: 'assets/charderp.obj'},
-					{ id: 'charderp-mtl', src: 'assets/charderp.mtl'}
-				]
-			}),
+			w(AssetEntity, { }),
+			... this.renderControls(),
 			w(Outside, {
-				monster: Monster.CharDerp
+				monster: this.monster
 			})
 		]);
+	}
+
+	private renderControls(): DNode[] {
+		return [
+			v('a-entity', {
+				'vive-controls': 'hand: left'
+			}),
+			v('a-entity', {
+				'vive-controls': 'hand: right'
+			})
+		];
+	}
+
+	private selectMonster(): Monster {
+		const num = Math.floor(Math.random() * monsters.length);
+		return monsters[num];
 	}
 }
