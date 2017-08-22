@@ -28,6 +28,7 @@
 	},
 	"include": [
 		"./src/**/*.ts",
-		"./tests/**/*.ts"
+		"./tests/**/*.ts",
+		"node_modules/@types/aframe/index.d.ts"
 	]
 }

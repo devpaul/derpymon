@@ -1,13 +1,13 @@
 import { registry } from '@dojo/widget-core/d';
 import { BaseInjector, Context, Injector } from '@dojo/widget-core/Injector';
-import { Asset } from '../../framework/Assets';
+import { Asset } from '../framework/Assets';
 
-export const enum Monster {
+export const enum MonsterName {
 	CharDerp = 'charderp',
 	Robot = 'robot'
 }
 
-export const monsters: ReadonlyArray<Monster> = Object.freeze([ Monster.CharDerp, Monster.Robot ]);
+export const monsters: ReadonlyArray<MonsterName> = Object.freeze([ MonsterName.CharDerp, MonsterName.Robot ]);
 
 export function initialize() {
 	const assets: Asset[] = [];
@@ -30,10 +30,3 @@ export function initialize() {
 	registry.define('assets', Injector(BaseInjector, new Context({ assets })));
 }
 
-export function genericMapper<T = any>() {
-	return {
-		getProperties(context: any): T {
-			return context.get();
-		}
-	}
-}

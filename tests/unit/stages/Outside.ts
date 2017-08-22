@@ -3,7 +3,7 @@ import { assert } from 'chai';
 import { VNode } from '@dojo/interfaces/vdom';
 
 import Outside from '../../../src/stages/Outside';
-import { Monster } from '../../../src/commands/initialize/characters';
+import { MonsterName } from '../../../src/definitions/characters';
 
 registerSuite({
 	name: 'Outside',
@@ -19,7 +19,7 @@ registerSuite({
 	'render with stranger'() {
 		const helloWorld = new Outside();
 		helloWorld.__setProperties__({
-			monster: Monster.CharDerp
+			monster: MonsterName.CharDerp
 		});
 
 		const vnode = <VNode> helloWorld.__render__();

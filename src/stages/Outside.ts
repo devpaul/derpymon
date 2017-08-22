@@ -3,30 +3,26 @@ import { DNode, WidgetProperties } from '@dojo/widget-core/interfaces';
 import { WidgetBase } from '@dojo/widget-core/WidgetBase';
 import { Container } from '@dojo/widget-core/Container';
 import ObjModel from '../framework/ObjModel';
-import { genericMapper, Monster } from '../commands/initialize/characters';
+import { MonsterName } from '../definitions/characters';
+import genericMapper from '../framework/util/genericMapper';
+import { ObjHeight } from '../definitions/heightComponent';
 
 export interface OutsideProperties extends WidgetProperties {
-	monster: Monster;
+	monster: MonsterName;
+	monsterDistance?: number;
 }
 
 export default class Outside extends WidgetBase<OutsideProperties> {
 	protected render(): DNode {
-		const { monster } = this.properties;
+		const { monster, monsterDistance = 5 } = this.properties;
 		const Derpymon = Container(ObjModel, monster, genericMapper());
 
-		return v('a-entity', [
-			v('a-plane', {
-				color: '#258e26',
-				height: '100',
-				rotation: '-90 0 0',
-				width: '100'
-			}),
-			v('a-sky', {
-				color: '#859cff'
-			}),
+		return v('a-entity', {
+			environment: 'preset: forest'
+		}, [
 			w(Derpymon, {
-				position: '2 -3 -10',
-				scale: '0.5 0.5 0.5'
+				position: `0 0 -${ monsterDistance }`,
+				[ObjHeight]: '2'
 			})
 		]);
 	}

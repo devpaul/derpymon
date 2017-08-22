@@ -16,6 +16,7 @@
     "@dojo/widget-core": "next",
     "@types/aframe": "^0.5.0",
     "aframe": "^0.6.1",
+    "aframe-environment-component": "^1.0.0",
     "maquette": "devpaul/maquette#custom-elements-dist"
   },
   "devDependencies": {
