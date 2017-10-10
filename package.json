@@ -4,6 +4,7 @@
   "license": "MPL-2.0",
   "scripts": {
     "build": "dojo build",
+    "element": "dojo build --element=src/createDerpymonElement.ts",
     "serve": "ts-node ./support/webserv",
     "watch": "dojo build -w"
   },
@@ -15,7 +16,9 @@
     "@dojo/shim": "next",
     "@dojo/widget-core": "next",
     "@types/aframe": "^0.5.0",
-    "aframe": "^0.6.1",
+    "@webcomponents/custom-elements": "^1.0.2",
+    "@webcomponents/html-imports": "^1.0.1",
+    "aframe": "^0.7.0",
     "aframe-environment-component": "^1.0.0",
     "maquette": "devpaul/maquette#custom-elements-dist"
   },
@@ -39,6 +42,6 @@
     "sinon": "^2.0.0",
     "ts-node": "^3.3.0",
     "typescript": "^2.4.2",
-    "webserv": "^0.10.0"
+    "webserv": "^0.11.1"
   }
 }
