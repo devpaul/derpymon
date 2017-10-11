@@ -27,7 +27,7 @@ export default class App extends WidgetBase<WidgetProperties> {
 			w(Outside, {
 				monster: this.monster,
 				monsterDistance: this.distance
-			})
+			}),
 		]);
 	}
 }

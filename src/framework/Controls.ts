@@ -1,15 +1,24 @@
 import { v } from '@dojo/widget-core/d';
-import { DNode, WidgetProperties } from '@dojo/widget-core/interfaces';
+import { DNode, EventHandler, WidgetProperties } from '@dojo/widget-core/interfaces';
 import { WidgetBase } from '@dojo/widget-core/WidgetBase';
 
-export default class Controls extends WidgetBase<WidgetProperties> {
+export interface ControlsProperties {
+	onActionButtonPressed?: EventHandler,
+	onActionButtonReleased?: EventHandler
+}
+
+function logEvent(name: string) {
+	return (event: Event) => {
+		console.log(name, event);
+	}
+}
+
+export default class Controls extends WidgetBase<ControlsProperties> {
 	protected render(): DNode[] {
 		return [
-			v('a-entity', {
-				'vive-controls': 'hand: left'
-			}),
-			v('a-entity', {
-				'vive-controls': 'hand: right'
+			v('a-entity', <any> {
+				id: 'controls',
+				'daydream-controls': ''
 			})
 		];
 	}

@@ -1,6 +1,7 @@
 import { Box3 } from 'three';
+const AFrame = require('aframe');
 
-export const ObjHeight = 'objheight';
+export const objHeight = 'objheight';
 
 export const enum Event {
 	HeightScale = 'heightScale'
@@ -9,8 +10,8 @@ export const enum Event {
 // Avoids triggering a zero-determinant which makes object3D matrix non-invertible.
 const zeroScale = 0.00001;
 
-export function register() {
-	AFRAME.registerComponent(ObjHeight, {
+export default function register() {
+	AFrame.registerComponent(objHeight, {
 		schema: {
 			type: 'int',
 			'default': '0'

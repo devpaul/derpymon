@@ -5,7 +5,8 @@ import { Container } from '@dojo/widget-core/Container';
 import ObjModel from '../framework/ObjModel';
 import { MonsterName } from '../definitions/characters';
 import genericMapper from '../framework/util/genericMapper';
-import { ObjHeight } from '../definitions/heightComponent';
+import { objHeight } from '../components/heightComponent';
+import { trackPosition } from '../components/trackPosition';
 
 export interface OutsideProperties extends WidgetProperties {
 	monster: MonsterName;
@@ -13,17 +14,23 @@ export interface OutsideProperties extends WidgetProperties {
 }
 
 export default class Outside extends WidgetBase<OutsideProperties> {
-	protected render(): DNode {
+	protected render() {
 		const { monster, monsterDistance = 5 } = this.properties;
 		const Derpymon = Container(ObjModel, monster, genericMapper());
 
-		return v('a-entity', {
+		return [
+			v('a-entity', {
 			environment: 'preset: forest'
-		}, [
+			}),
 			w(Derpymon, {
 				position: `0 0 -${ monsterDistance }`,
-				[ObjHeight]: '2'
+				[objHeight]: '2'
+			}),
+			v('a-sphere', {
+				[trackPosition]: '#controls',
+				radius: '0.15',
+				color: 'red'
 			})
-		]);
+		];
 	}
 }
