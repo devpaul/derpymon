@@ -17,8 +17,12 @@ export default class Controls extends WidgetBase<ControlsProperties> {
 	protected render(): DNode[] {
 		return [
 			v('a-entity', <any> {
-				id: 'controls',
+				'class': '.controls',
 				'daydream-controls': ''
+			}),
+			v('a-entity', {
+				'class': '.controls',
+				'vive-controls': ''
 			})
 		];
 	}

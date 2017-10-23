@@ -1,22 +1,20 @@
 import { WidgetBase } from '@dojo/widget-core/WidgetBase';
 import { DNode, WidgetProperties } from '@dojo/widget-core/interfaces';
 import { v } from '@dojo/widget-core/d';
-
-export interface Asset {
-	id: string;
-	src: string;
-}
+import AppContext from '../context/AppContext';
 
 export interface AssetProperties extends WidgetProperties {
-	assets: Asset[];
+	assets?: AppContext['assets'];
 }
 
 export default class Assets extends WidgetBase<AssetProperties> {
 	protected render(): DNode {
-		const assets = this.properties.assets.map((asset) => {
-			return v('a-asset-item', asset);
-		});
+		const {
+			assets = []
+		} = this.properties;
 
-		return v('a-assets', {}, assets);
+		return v('a-assets', {}, assets.map((asset) => {
+			return v('a-asset-item', asset);
+		}));
 	}
 }

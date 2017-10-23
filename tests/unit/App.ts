@@ -4,7 +4,7 @@ import { VNode } from '@dojo/interfaces/vdom';
 import { spy, SinonSpy } from 'sinon';
 
 import App from './../../src/App';
-import Outside from './../../src/stages/Outside';
+import Outside from '../../src/widgets/Outside';
 
 let helloWorldSpy: SinonSpy;
 let helloWorldSetPropertiesSpy: SinonSpy;

@@ -1,16 +1,29 @@
-import { initialize as initCharacters } from './definitions/characters';
 import registerHeightComponent from './components/heightComponent';
-import registerTrackPosition from './components/trackPosition';
-
-let initialized = false;
+import Registry from '@dojo/widget-core/Registry';
+import AppContext from './context/AppContext';
+import OutsideContext from './context/OutsideContext';
+import monsters from './configuration/monsters';
 
 export default function initialize() {
-	if (initialized) {
-		console.error('Application already initialized');
-	}
+	const registry = new Registry();
+	const appContext = new AppContext();
+	const outsideContext = new OutsideContext();
+	registry.defineInjector('app-state', appContext);
+	registry.defineInjector('outside', outsideContext);
 
-	initCharacters();
+	initializeMonsters(appContext, outsideContext);
 	registerHeightComponent();
-	registerTrackPosition();
-	initialized = true;
+	outsideContext.randomizeEncounter();
+	return registry;
+}
+
+function initializeMonsters(appContext: AppContext, outsideContext: OutsideContext) {
+	for (let monster of monsters) {
+		appContext.addObjMtlAssets(monster.name, monster.obj, monster.mtl);
+		outsideContext.addMonster({
+			name: monster.name,
+			heights: monster.heights,
+			environment: monster.environment
+		})
+	}
 }

@@ -12,9 +12,9 @@ if (!root) {
 	throw new Error('cannot find target node');
 }
 
-initialize();
+const registry = initialize();
 
 const Projector = ProjectorMixin(App);
 const projector = new Projector();
-
+projector.setProperties({ registry });
 projector.append(root);
