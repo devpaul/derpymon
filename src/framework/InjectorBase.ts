@@ -5,15 +5,15 @@ export class InjectorBase extends Injector {
 		super({});
 	}
 
+	emitInvalidate() {
+		this.emit({type: 'invalidate'});
+	}
+
 	get(): this {
 		return this;
 	}
 
 	set() {
 		throw new Error('not implemented');
-	}
-
-	protected emitInvalidate() {
-		this.emit({type: 'invalidate'});
 	}
 }

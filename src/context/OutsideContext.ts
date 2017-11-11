@@ -1,5 +1,4 @@
 import { InjectorBase } from '../framework/InjectorBase';
-import { ObjModelAsset } from '../interfaces';
 
 interface Monster {
 	distance: number;

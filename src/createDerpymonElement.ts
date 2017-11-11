@@ -1,15 +1,11 @@
 import { CustomElementDescriptor } from '@dojo/widget-core/customElements';
-import App from './App';
 import initialize from './initialize';
-
-// Require globals
-require('aframe');
-require('aframe-environment-component');
+import AppContainer from './containers/AppContainer';
 
 export default function createDerpymonElement(): CustomElementDescriptor {
 	return {
 		tagName: 'go-derpy',
-		widgetConstructor: App,
+		widgetConstructor: AppContainer,
 		events: [],
 		properties: [],
 		initialization() {

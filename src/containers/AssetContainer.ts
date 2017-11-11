@@ -1,9 +1,10 @@
 import Container from '../framework/Container';
 import Assets from '../widgets/Assets';
-import AppContext from '../context/AppContext';
+import AssetContext from '../context/AssetContext';
+import { State } from '../initialize';
 
-const AssetContainer = Container(Assets, 'app-state', {
-	getProperties(context: AppContext) {
+const AssetContainer = Container(Assets, State.Asset, {
+	getProperties(context: AssetContext) {
 		return {
 			assets: context.assets
 		}

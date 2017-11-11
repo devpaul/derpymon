@@ -2,7 +2,7 @@ import { Environment, MonsterDefinition } from '../context/OutsideContext';
 import { ObjModelAsset } from '../interfaces';
 import { assign } from '@dojo/shim/object';
 
-declare type MonsterConfigurationItem = MonsterDefinition & ObjModelAsset;
+export type MonsterConfigurationItem = MonsterDefinition & ObjModelAsset;
 
 export const enum MonsterName {
 	CharDerp = 'charderp',

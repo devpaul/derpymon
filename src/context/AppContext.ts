@@ -1,48 +1,19 @@
 import { InjectorBase } from '../framework/InjectorBase';
 
-/**
- * Application Asset used for loading models, video, and images by A-Frame's <a-asset>
- */
-export interface Asset {
-	id: string;
-	src: string;
+export const enum ApplicationState {
+	Initial = 'initial',
+	Outside = 'outside'
 }
 
 export default class AppContext extends InjectorBase {
-	private _assets: Map<string, Asset> = new Map();
+	debug = true;
 
-	/**
-	 * @return a list of all active assets
-	 */
-	get assets(): Asset[] {
-		return Array.from(this._assets.values());
-	}
+	initialized = {
+		aframe: false,
+		monsters: false
+	};
 
-	/**
-	 * Adds an asset
-	 */
-	addAsset(id: string, src: string) {
-		if (!this._assets.has(id)) {
-			this._assets.set(id, {
-				id,
-				src
-			});
-			this.emitInvalidate();
-		}
-	}
+	isLoadingState = false;
 
-	/**
-	 * Adds an Obj model asset
-	 */
-	addObjMtlAssets(name: string, objSrc: string, mtlSrc?: string) {
-		this.addAsset(`${ name }-obj`, objSrc);
-		mtlSrc && this.addAsset(`${ name }-mtl`, mtlSrc);
-	}
-
-	getObjMtlAssets(name: string): { mtl?: Asset, obj?: Asset } {
-		return {
-			mtl: this._assets.get(`${ name }-mtl`),
-			obj: this._assets.get(`${ name }-obj`)
-		}
-	}
+	state: ApplicationState = ApplicationState.Initial;
 }

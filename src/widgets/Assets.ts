@@ -1,10 +1,10 @@
 import { WidgetBase } from '@dojo/widget-core/WidgetBase';
 import { DNode, WidgetProperties } from '@dojo/widget-core/interfaces';
 import { v } from '@dojo/widget-core/d';
-import AppContext from '../context/AppContext';
+import AssetContext from '../context/AssetContext';
 
 export interface AssetProperties extends WidgetProperties {
-	assets?: AppContext['assets'];
+	assets?: AssetContext['assets'];
 }
 
 export default class Assets extends WidgetBase<AssetProperties> {

@@ -26,12 +26,14 @@ export default class Outside extends WidgetBase<OutsideProperties> {
 
 		return [
 			v('a-entity', {
-				environment: `preset: ${ environment }`
+				environment: `preset: ${ environment }`,
+				'static-body': ''
 			}),
 			monster ? w(ObjModel, {
 				mtl: monster.mtl,
 				src: monster.obj,
 				position: `0 0 -${ monster.distance }`,
+				'static-body': 'shape: box',
 				[objHeight]: `${ monster.height }`
 			}) : null
 		];

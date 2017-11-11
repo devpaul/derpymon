@@ -2,10 +2,11 @@ import Outside, { OutsideProperties } from '../widgets/Outside';
 import Container from '../framework/Container';
 import { throws } from '../util/properties';
 import OutsideContext from '../context/OutsideContext';
-import AppContext from '../context/AppContext';
+import { State } from '../initialize';
+import AssetContext from '../context/AssetContext';
 
-const OutsideContainer = Container(Outside, [ 'outside', 'app-state' ], {
-	getProperties(payload: [OutsideContext, AppContext]): OutsideProperties {
+const OutsideContainer = Container(Outside, [ State.Outside, State.Asset ], {
+	getProperties(payload: [ OutsideContext, AssetContext ]): OutsideProperties {
 		const [
 			outside = throws(),
 			appContext = throws()

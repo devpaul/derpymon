@@ -1,10 +1,6 @@
 import { ProjectorMixin } from '@dojo/widget-core/mixins/Projector';
-import App from './App';
 import initialize from './initialize';
-
-// Require globals
-require('aframe');
-require('aframe-environment-component');
+import AppContainer from './containers/AppContainer';
 
 const root = document.querySelector('go-derpy') || undefined;
 
@@ -13,8 +9,10 @@ if (!root) {
 }
 
 const registry = initialize();
-
-const Projector = ProjectorMixin(App);
+const Projector = ProjectorMixin(AppContainer);
 const projector = new Projector();
 projector.setProperties({ registry });
 projector.append(root);
+
+(<any> root.ownerDocument).registry = registry;
+(<any> root.ownerDocument).projector = projector;
