@@ -1,4 +1,5 @@
 import { InjectorBase } from '../framework/InjectorBase';
+import { assign } from '@dojo/core/lang';
 
 interface Monster {
 	distance: number;
@@ -10,6 +11,16 @@ export const enum Environment {
 	Checkerboard = 'checkerboard',
 	Desert = 'egypt',
 	Forest = 'forest'
+}
+
+declare type Dimension3 = [ number, number, number ];
+
+export interface Throw {
+	direction: Dimension3;
+	initialTime: number;
+	position: Dimension3;
+	speed: number;
+	thrownTime?: number;
 }
 
 /**
@@ -28,12 +39,14 @@ export interface MonsterDefinition {
 }
 
 export default class OutsideContext extends InjectorBase {
-	private _environment: Environment = Environment.Forest;
+	environment: Environment = Environment.Forest;
+
+	private _derpyball?: Throw;
 	private _monster?: Monster;
 	private _monsterDefinitions: Map<string, MonsterDefinition> = new Map();
 
-	get environment(): Environment {
-		return this._environment;
+	get derpyball(): Throw | undefined {
+		return this._derpyball;
 	}
 
 	get monster(): Monster | undefined {
@@ -44,39 +57,34 @@ export default class OutsideContext extends InjectorBase {
 		this._monsterDefinitions.set(definitions.name, definitions);
 	}
 
-	randomizeEncounter() {
-		const {
-			heights,
-			name,
-		} = this.randomMonster();
-		const distance = Math.random() * 8 + 2;
-		const height = Math.random() * (heights.max - heights.min) + heights.min;
-
-		this.setMonster({
-			name,
-			height,
-			distance
-		});
+	ballThrown() {
+		if (this._derpyball && !this._derpyball.thrownTime) {
+			this._derpyball.thrownTime = performance.now();
+		}
 	}
 
-	setEnvironment(name: Environment) {
-		if (this._environment !== name) {
-			this._environment = name;
-			this.emitInvalidate();
+	getMonsterDefinitions(): MonsterDefinition[] {
+		return Array.from(this._monsterDefinitions.values());
+	}
+
+	removeBall() {
+		if (this._derpyball) {
+			this._derpyball = undefined;
+		}
+	}
+
+	throwBall(value: Throw) {
+		if (!this._derpyball && value) {
+			this._derpyball = {
+				direction: <Dimension3> Array.from(value.direction),
+				initialTime: value.initialTime || performance.now(),
+				position: <Dimension3> Array.from(value.position),
+				speed: value.speed
+			}
 		}
 	}
 
 	setMonster(monster: Monster | undefined) {
-		if (this._monster !== monster) {
-			this._monster = monster;
-			this.emitInvalidate();
-		}
-	}
-
-	private randomMonster() {
-		const max = this._monsterDefinitions.size;
-		const num = Math.floor(Math.random() * max);
-		const definitions = Array.from(this._monsterDefinitions.values());
-		return definitions[num];
+		this._monster = assign({}, monster);
 	}
 }

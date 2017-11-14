@@ -8,6 +8,8 @@ import randomizeEncounter from './commands/randomizeEncounter';
 import registerMonsters from './commands/registerMonsters';
 import AssetContext from './context/AssetContext';
 import loadedMonsters from './commands/loadedMonsters';
+import removeDerpyball from './commands/removeDerpyball';
+import throwDerpyball from './commands/throwDerpyball';
 
 // Require globals
 require('aframe');
@@ -23,20 +25,24 @@ export const enum State {
 
 export const enum ActionType {
 	Initialize = 'initialize',
-	LoadMonsters = 'loadMonsters',
 	LoadedMonsters = 'loadedMonsters',
+	LoadMonsters = 'loadMonsters',
 	RandomizeEncounter = 'randomizeEncounter',
-	RegisterMonsters = 'registerMonsters'
+	RegisterMonsters = 'registerMonsters',
+	RemoveDerpyball = 'removeDerpyball',
+	ThrowDerpyball = 'throwDerpyball'
 }
 
 export default function initialize() {
 	const registry = new Registry();
 	const executor = new Executor(registry, [
 		{ type: ActionType.Initialize, handler: initializeApp, state: [ State.App, State.Executor ] },
-		{ type: ActionType.LoadMonsters, handler: loadMonsters, state: State.Executor },
 		{ type: ActionType.LoadedMonsters, handler: loadedMonsters, state: [ State.App, State.Executor ] },
+		{ type: ActionType.LoadMonsters, handler: loadMonsters, state: State.Executor },
 		{ type: ActionType.RandomizeEncounter, handler: randomizeEncounter, state: State.Outside },
-		{ type: ActionType.RegisterMonsters, handler: registerMonsters, state: [ State.Asset, State.Outside ] }
+		{ type: ActionType.RegisterMonsters, handler: registerMonsters, state: [ State.Asset, State.Outside ] },
+		{ type: ActionType.RemoveDerpyball, handler: removeDerpyball, state: State.Outside },
+		{ type: ActionType.ThrowDerpyball, handler: throwDerpyball, state: State.Outside }
 	]);
 	const appContext = new AppContext();
 	const assetContext = new AssetContext();

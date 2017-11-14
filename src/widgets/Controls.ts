@@ -7,12 +7,6 @@ export interface ControlsProperties {
 	onActionButtonReleased?: EventHandler
 }
 
-function logEvent(name: string) {
-	return (event: Event) => {
-		console.log(name, event);
-	}
-}
-
 export default class Controls extends WidgetBase<ControlsProperties> {
 	protected render(): DNode[] {
 		return [

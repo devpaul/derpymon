@@ -9,7 +9,7 @@ export interface Command<T extends Action = Action> {
 
 export interface Action<T = any, U = any> {
 	type: string;
-	payload?: T;
+	payload: T;
 	state: U;
 }
 
