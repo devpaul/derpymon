@@ -1,9 +1,6 @@
-import { Action } from '../framework/Executor';
 import OutsideContext from '../context/OutsideContext';
 
-export type RandomizeEncounterAction = Action<undefined, OutsideContext>;
-
-export default function randomizeEncounter({ state: outside }: RandomizeEncounterAction) {
+export default function randomizeEncounter(outside: OutsideContext) {
 	const monsters = outside.getMonsterDefinitions();
 	const num = Math.floor(Math.random() * monsters.length);
 	const monster = monsters[num];
@@ -19,4 +16,4 @@ export default function randomizeEncounter({ state: outside }: RandomizeEncounte
 		height,
 		distance
 	});
-};
+}

@@ -1,8 +1,5 @@
-import { Action } from '../framework/Executor';
 import OutsideContext from '../context/OutsideContext';
 
-export type RemoveDerpyballAction = Action<undefined, OutsideContext>;
-
-export default function removeDerpyball({ state: outside }: RemoveDerpyballAction) {
+export default function removeDerpyball(outside: OutsideContext) {
 	outside.removeBall();
 }

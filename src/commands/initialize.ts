@@ -1,11 +1,8 @@
-import Executor, { Action } from '../framework/Executor';
+import Executor from '../framework/Executor';
 import AppContext, { ApplicationState } from '../context/AppContext';
-import { ActionType } from '../initialize';
 import registerHeightComponent from '../components/heightComponent';
 
-export type InitializeAction = Action<undefined, [ AppContext, Executor ]>;
-
-export default function initialize({ state: [ app, executor ] }: InitializeAction) {
+export default function initialize(app: AppContext, executor: Executor) {
 	if (app.state !== ApplicationState.Initial) {
 		throw new Error('Application already initialized');
 	}
@@ -25,4 +22,4 @@ export default function initialize({ state: [ app, executor ] }: InitializeActio
 		app.isLoadingState = false;
 		app.state = ApplicationState.Outside;
 	}
-};
+}
