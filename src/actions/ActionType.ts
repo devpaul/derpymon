@@ -7,6 +7,3 @@ export const enum ActionType {
 	RemoveDerpyball = 'removeDerpyball',
 	ThrowDerpyball = 'throwDerpyball'
 }
-
-
-

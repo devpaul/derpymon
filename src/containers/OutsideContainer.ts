@@ -2,16 +2,15 @@ import Outside, { OutsideProperties } from '../widgets/Outside';
 import Container from '../framework/Container';
 import { throws } from '../util/properties';
 import OutsideContext from '../context/OutsideContext';
-import { ActionType, State } from '../initialize';
+import { State } from '../initialize';
 import AssetContext from '../context/AssetContext';
-import Executor from '../framework/Executor';
+import removeDerpyball from '../commands/removeDerpyball';
 
-const OutsideContainer = Container(Outside, [ State.Outside, State.Asset, State.Executor ], {
-	getProperties(payload: [ OutsideContext, AssetContext, Executor ]): OutsideProperties {
+const OutsideContainer = Container(Outside, [ State.Outside, State.Asset ], {
+	getProperties(payload: [ OutsideContext, AssetContext ]): OutsideProperties {
 		const [
 			outside = throws(),
 			appContext = throws(),
-			executor = throws()
 		] = payload;
 		let monster: OutsideProperties['monster'];
 		const monsterInfo = outside.monster;
@@ -33,7 +32,7 @@ const OutsideContainer = Container(Outside, [ State.Outside, State.Asset, State.
 			monster,
 
 			removeDerpyball() {
-				executor.execute(ActionType.RemoveDerpyball);
+				removeDerpyball(outside);
 			}
 		}
 	}

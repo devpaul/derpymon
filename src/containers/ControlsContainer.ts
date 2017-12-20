@@ -1,10 +1,11 @@
 import Container from '../framework/Container';
-import { ActionType, State } from '../initialize';
+import { State } from '../initialize';
 import Controls, { ControlsProperties } from '../widgets/Controls';
 import { Throw } from '../context/OutsideContext';
+import throwDerpyball from '../commands/throwDerpyball';
 
-const ControlsContainer = Container(Controls, [ State.App, State.Executor ], {
-	getProperties([ app, executor]): ControlsProperties {
+const ControlsContainer = Container(Controls, [ State.App, State.Outside ], {
+	getProperties([ app, outside ]): ControlsProperties {
 		return {
 			onActionButtonPressed() {
 				console.log('pressed', app.state);
@@ -14,7 +15,7 @@ const ControlsContainer = Container(Controls, [ State.App, State.Executor ], {
 					position: [ 0, 3, -4],
 					speed: 1
 				};
-				executor.execute({ type: ActionType.ThrowDerpyball, payload: derpyball });
+				throwDerpyball(derpyball, outside);
 			},
 			onActionButtonReleased() {
 				console.log('released', app.state);

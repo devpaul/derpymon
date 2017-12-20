@@ -1,15 +1,8 @@
 import Registry from '@dojo/widget-core/Registry';
 import AppContext from './context/AppContext';
-import OutsideContext from './context/OutsideContext';
-import Executor from './framework/Executor';
-import initializeApp from './commands/initialize';
-import loadMonsters from './commands/loadMonsters';
-import randomizeEncounter from './commands/randomizeEncounter';
-import registerMonsters from './commands/registerMonsters';
 import AssetContext from './context/AssetContext';
-import loadedMonsters from './commands/loadedMonsters';
-import removeDerpyball from './commands/removeDerpyball';
-import throwDerpyball from './commands/throwDerpyball';
+import OutsideContext from './context/OutsideContext';
+import { attachListener } from './stores/keyboardMiddleware';
 
 // Require globals
 require('aframe');
@@ -19,39 +12,20 @@ require('aframe-physics-system');
 export const enum State {
 	App = 'app-state',
 	Asset = 'assets',
-	Executor = 'executor',
 	Outside = 'outside'
-}
-
-export const enum ActionType {
-	Initialize = 'initialize',
-	LoadedMonsters = 'loadedMonsters',
-	LoadMonsters = 'loadMonsters',
-	RandomizeEncounter = 'randomizeEncounter',
-	RegisterMonsters = 'registerMonsters',
-	RemoveDerpyball = 'removeDerpyball',
-	ThrowDerpyball = 'throwDerpyball'
 }
 
 export default function initialize() {
 	const registry = new Registry();
-	const executor = new Executor(registry, [
-		{ type: ActionType.Initialize, handler: initializeApp, state: [ State.App, State.Executor ] },
-		{ type: ActionType.LoadedMonsters, handler: loadedMonsters, state: [ State.App, State.Executor ] },
-		{ type: ActionType.LoadMonsters, handler: loadMonsters, state: State.Executor },
-		{ type: ActionType.RandomizeEncounter, handler: randomizeEncounter, state: State.Outside },
-		{ type: ActionType.RegisterMonsters, handler: registerMonsters, state: [ State.Asset, State.Outside ] },
-		{ type: ActionType.RemoveDerpyball, handler: removeDerpyball, state: State.Outside },
-		{ type: ActionType.ThrowDerpyball, handler: throwDerpyball, state: State.Outside }
-	]);
 	const appContext = new AppContext();
 	const assetContext = new AssetContext();
 	const outsideContext = new OutsideContext();
 
 	registry.defineInjector(State.App, appContext);
 	registry.defineInjector(State.Asset, assetContext);
-	registry.defineInjector(State.Executor, executor);
 	registry.defineInjector(State.Outside, outsideContext);
+
+	attachListener(outsideContext);
 
 	return registry;
 }
