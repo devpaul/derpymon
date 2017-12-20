@@ -1,7 +1,6 @@
 import { ProjectorMixin } from '@dojo/widget-core/mixins/Projector';
 import initialize from './initialize';
 import AppContainer from './containers/AppContainer';
-import Executor from './framework/Executor';
 
 const root = document.querySelector('go-derpy') || undefined;
 
@@ -10,6 +9,7 @@ if (!root) {
 }
 
 const registry = initialize();
+// tslint:disable:variable-name
 const Projector = ProjectorMixin(AppContainer);
 const projector = new Projector();
 projector.setProperties({ registry });

@@ -6,7 +6,7 @@ import initialize from '../commands/initialize';
 import AssetContext from '../context/AssetContext';
 import OutsideContext from '../context/OutsideContext';
 
-const AppContainer = Container(App, [ State.App, State.Asset, State.Outside ], {
+export default class AppContainer extends Container(App, [ State.App, State.Asset, State.Outside ], {
 	getProperties([ app, assets, outside ]: [ AppContext, AssetContext, OutsideContext ]): AppProperties {
 		return {
 			isLoadingState: app.isLoadingState,
@@ -15,8 +15,6 @@ const AppContainer = Container(App, [ State.App, State.Asset, State.Outside ], {
 			initialize() {
 				initialize(app, assets, outside);
 			}
-		}
+		};
 	}
-});
-
-export default AppContainer;
+}) {}

@@ -80,7 +80,7 @@ export default class OutsideContext extends InjectorBase {
 				initialTime: value.initialTime || performance.now(),
 				position: <Dimension3> Array.from(value.position),
 				speed: value.speed
-			}
+			};
 		}
 	}
 

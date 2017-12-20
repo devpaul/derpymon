@@ -6,11 +6,11 @@ import { State } from '../initialize';
 import AssetContext from '../context/AssetContext';
 import removeDerpyball from '../commands/removeDerpyball';
 
-const OutsideContainer = Container(Outside, [ State.Outside, State.Asset ], {
+export default class OutsideContainer extends Container(Outside, [ State.Outside, State.Asset ], {
 	getProperties(payload: [ OutsideContext, AssetContext ]): OutsideProperties {
 		const [
 			outside = throws(),
-			appContext = throws(),
+			appContext = throws()
 		] = payload;
 		let monster: OutsideProperties['monster'];
 		const monsterInfo = outside.monster;
@@ -23,7 +23,7 @@ const OutsideContainer = Container(Outside, [ State.Outside, State.Asset ], {
 					mtl: `#${ assets.mtl.id }`,
 					name: monsterInfo.name,
 					obj: `#${ assets.obj.id }`
-				}
+				};
 			}
 		}
 		return {
@@ -34,8 +34,6 @@ const OutsideContainer = Container(Outside, [ State.Outside, State.Asset ], {
 			removeDerpyball() {
 				removeDerpyball(outside);
 			}
-		}
+		};
 	}
-});
-
-export default OutsideContainer;
+}) {}

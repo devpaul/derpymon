@@ -69,8 +69,8 @@ export default class Outside extends WidgetBase<OutsideProperties> {
 				'static-body': 'shape: auto',
 				visible: 'false',
 				width: '30'
-			}),
-		]
+			})
+		];
 	}
 
 	private renderMonster() {
@@ -84,6 +84,6 @@ export default class Outside extends WidgetBase<OutsideProperties> {
 			position: `0 0 -${ monster.distance }`,
 			'static-body': 'shape: box',
 			[objHeight]: `${ monster.height }`
-		}) : null
+		}) : null;
 	}
 }

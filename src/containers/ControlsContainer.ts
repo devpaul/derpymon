@@ -4,7 +4,7 @@ import Controls, { ControlsProperties } from '../widgets/Controls';
 import { Throw } from '../context/OutsideContext';
 import throwDerpyball from '../commands/throwDerpyball';
 
-const ControlsContainer = Container(Controls, [ State.App, State.Outside ], {
+export default class ControlsContainer extends Container(Controls, [ State.App, State.Outside ], {
 	getProperties([ app, outside ]): ControlsProperties {
 		return {
 			onActionButtonPressed() {
@@ -20,8 +20,6 @@ const ControlsContainer = Container(Controls, [ State.App, State.Outside ], {
 			onActionButtonReleased() {
 				console.log('released', app.state);
 			}
-		}
+		};
 	}
-});
-
-export default ControlsContainer;
+}) {}

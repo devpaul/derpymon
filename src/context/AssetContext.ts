@@ -43,6 +43,6 @@ export default class AssetContext extends InjectorBase {
 		return {
 			mtl: this._assets.get(`${ name }-mtl`),
 			obj: this._assets.get(`${ name }-obj`)
-		}
+		};
 	}
 }

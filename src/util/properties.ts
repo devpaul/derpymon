@@ -12,7 +12,7 @@ export function filteredProps<T = any>(whitelist: string[]): GetProperties<T> {
 			props[item] = properties[item];
 		}
 		return props;
-	}
+	};
 }
 
 /**

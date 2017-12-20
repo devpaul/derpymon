@@ -20,7 +20,7 @@ export default class Scene extends WidgetBase<SceneProperties> {
 
 	protected renderOutside() {
 		const {
-			debug = false,
+			debug = false
 		} = this.properties;
 
 		return v('a-scene', {
@@ -28,7 +28,7 @@ export default class Scene extends WidgetBase<SceneProperties> {
 		}, [
 			w(AssetContainer, {}),
 			w(Controls, {}),
-			w(OutsideContainer, {}),
+			w(OutsideContainer, {})
 		]);
 	}
 

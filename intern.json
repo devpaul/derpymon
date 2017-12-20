@@ -1,0 +1,40 @@
+{
+	"capabilities+": {
+		"project": "Derpymon",
+		"name": "devpaul/derpymon"
+	},
+	"browser": {
+		"plugins": [
+			"./_build/src/src.js"
+		],
+		"suites": [
+			"./_build/tests/unit/all.js"
+		]
+	},
+	"coverage": false,
+	"node": {
+		"reporters": [{ "name": "simple" }]
+	},
+	"configs": {
+		"local": {
+			"tunnel": "selenium",
+			"environments": [
+				{ "browserName": "chrome" }
+			]
+		},
+		"saucelabs": {
+			"tunnel": "saucelabs",
+			"capabilities+": {
+				"fixSessionCapabilities": false
+			},
+
+			"defaultTimeout": 10000,
+			"environments": [
+				{ "browserName": "MicrosoftEdge", "version": "15.15063", "platform": "Windows 10" },
+				{ "browserName": "firefox", "version": "57", "platform": "Windows 10" },
+				{ "browserName": "chrome", "version": "63", "platform": "Windows 10" }
+			],
+			"maxConcurrency": 4
+		}
+	}
+}
