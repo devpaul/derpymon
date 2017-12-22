@@ -29,6 +29,15 @@ VR a bit before debugging if you experience these issues.
 1. Wait. **Do not put your phone in the DayDream headset** Chrome Beta will switch into DayDream mode.
 1. Open _Remote Devices_ in Chrome debug tools, connect to your phone, and inspect the Derpymon page.
  
+# Traditional patterns => Redux conversion
 
-
+1. Containerize widgets that use injected state
+1. Convert commands to stateless functions detached from an executor
+1. Update containers to use stateless commands
+1. Move event handlers to stateless commands (attachHandler /detachHandler) in preparation for Redux middleware
+1. Create the initial state for the application
+1. Create reducer(s) to transform state and match features with the old store's transformed states
+1. Create actions and action creators to replace stateless functions (commands)
+1. Create a ReduxStore, migrate Containers to use it, and remove the old store(s)
+1. Refactor event handlers to Redux middleware 
 

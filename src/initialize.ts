@@ -3,6 +3,11 @@ import AppContext from './context/AppContext';
 import AssetContext from './context/AssetContext';
 import OutsideContext from './context/OutsideContext';
 import { attachListener } from './stores/keyboardMiddleware';
+import { createStore } from 'redux';
+import initialState from './stores/initialState';
+import derpymonReducer from './stores/derpymonReducer';
+import { STORE_LABEL } from './constants';
+import ReduxInjector from '@dojo/interop/redux/ReduxInjector';
 
 // Require globals
 require('aframe');
@@ -26,6 +31,10 @@ export default function initialize() {
 	registry.defineInjector(State.Outside, outsideContext);
 
 	attachListener(outsideContext);
+
+	// Redux stuff
+	const store = createStore(derpymonReducer);
+	registry.defineInjector(STORE_LABEL, new ReduxInjector(store));
 
 	return registry;
 }
