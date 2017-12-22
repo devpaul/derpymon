@@ -4,7 +4,6 @@ import AssetContext from './context/AssetContext';
 import OutsideContext from './context/OutsideContext';
 import { attachListener } from './stores/keyboardMiddleware';
 import { createStore } from 'redux';
-import initialState from './stores/initialState';
 import derpymonReducer from './stores/derpymonReducer';
 import { STORE_LABEL } from './constants';
 import ReduxInjector from '@dojo/interop/redux/ReduxInjector';

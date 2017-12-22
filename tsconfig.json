@@ -22,7 +22,7 @@
 		"outDir": "dist/",
 		"removeComments": false,
 		"sourceMap": true,
-		"strictNullChecks": true,
+		"strict": true,
 		"target": "es5",
 		"types": [ "intern" ]
 	},

@@ -7,6 +7,7 @@
     "build-tests": "dojo build -t --disableLazyWidgetDetection",
     "ci": "npm run build-tests && npm run saucelabs",
     "element": "dojo build --element=src/createDerpymonElement.ts",
+    "lint": "tslint --project tslint.json",
     "saucelabs": "intern config=@saucelabs",
     "selenium": "intern config=@local",
     "serve": "ts-node ./support/webserv",
