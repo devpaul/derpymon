@@ -1,17 +1,15 @@
 import Outside, { OutsideProperties } from '../widgets/Outside';
 import Container from '../framework/Container';
-import { throws } from '../util/properties';
 import OutsideContext from '../context/OutsideContext';
 import { State } from '../initialize';
 import AssetContext from '../context/AssetContext';
-import removeDerpyball from '../commands/removeDerpyball';
+import { STORE_LABEL } from '../constants';
+import { AppState } from '../stores/configuration/initialState';
+import { Store } from 'redux';
+import { removeDerpyball } from '../actions/outside';
 
-export default class OutsideContainer extends Container(Outside, [ State.Outside, State.Asset ], {
-	getProperties(payload: [ OutsideContext, AssetContext ]): OutsideProperties {
-		const [
-			outside = throws(),
-			appContext = throws()
-		] = payload;
+export default class OutsideContainer extends Container(Outside, [ State.Outside, State.Asset, STORE_LABEL ], {
+	getProperties([ outside, appContext, store ]: [ OutsideContext, AssetContext, Store<AppState> ]): OutsideProperties {
 		let monster: OutsideProperties['monster'];
 		const monsterInfo = outside.monster;
 		if (monsterInfo) {
@@ -32,7 +30,7 @@ export default class OutsideContainer extends Container(Outside, [ State.Outside
 			monster,
 
 			removeDerpyball() {
-				removeDerpyball(outside);
+				store.dispatch(removeDerpyball());
 			}
 		};
 	}

@@ -2,11 +2,13 @@ import Registry from '@dojo/widget-core/Registry';
 import AppContext from './context/AppContext';
 import AssetContext from './context/AssetContext';
 import OutsideContext from './context/OutsideContext';
-import { attachListener } from './stores/keyboardMiddleware';
-import { createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import derpymonReducer from './stores/derpymonReducer';
 import { STORE_LABEL } from './constants';
 import ReduxInjector from '@dojo/interop/redux/ReduxInjector';
+import keyboardMiddleware from './stores/middleware/keyboardMiddleware';
+import createInjectorMiddleware from './stores/middleware/injectorMiddleware';
+import thunk from 'redux-thunk';
 
 // Require globals
 require('aframe');
@@ -29,10 +31,12 @@ export default function initialize() {
 	registry.defineInjector(State.Asset, assetContext);
 	registry.defineInjector(State.Outside, outsideContext);
 
-	attachListener(outsideContext);
-
 	// Redux stuff
-	const store = createStore(derpymonReducer);
+	const store = createStore(derpymonReducer, applyMiddleware(
+		thunk,
+		keyboardMiddleware,
+		createInjectorMiddleware(registry)
+	));
 	registry.defineInjector(STORE_LABEL, new ReduxInjector(store));
 
 	return registry;

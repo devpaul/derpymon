@@ -21,8 +21,8 @@
     "@dojo/core": "^0.2.1",
     "@dojo/has": "^0.1.1",
     "@dojo/i18n": "^0.2.0",
-    "@dojo/interop": "^0.2.0",
     "@dojo/interfaces": "^0.1.0",
+    "@dojo/interop": "^0.2.0",
     "@dojo/routing": "^0.2.0",
     "@dojo/shim": "^0.2.3",
     "@dojo/widget-core": "^0.3.0",
@@ -34,7 +34,8 @@
     "aframe-physics-system": "^2.1.0",
     "cannon": "^0.6.2",
     "maquette": "devpaul/maquette#custom-elements-dist",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "@dojo/cli": "^0.2.0",

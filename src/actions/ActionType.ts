@@ -1,9 +1,6 @@
 export const enum ActionType {
-	Initialize = 'initialize',
-	LoadedMonsters = 'loadedMonsters',
-	LoadMonsters = 'loadMonsters',
-	RandomizeEncounter = 'randomizeEncounter',
-	RegisterMonsters = 'registerMonsters',
-	RemoveDerpyball = 'removeDerpyball',
-	ThrowDerpyball = 'throwDerpyball'
+	AttachKeyboard = 'attachKeyboard',
+	DetachKeyboard = 'detachKeyboard',
+	ThrowDerpyball = 'throwDerpyball',
+	RemoveDerpyball = 'removeDerpyball'
 }

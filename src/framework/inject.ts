@@ -4,7 +4,6 @@ import beforeProperties from '@dojo/widget-core/decorators/beforeProperties';
 import Injector from '@dojo/widget-core/Injector';
 import handleDecorator from '@dojo/widget-core/decorators/handleDecorator';
 import RegistryHandler from '@dojo/widget-core/RegistryHandler';
-import Evented from '@dojo/core/Evented';
 
 /**
  * Map of instances against registered injectors.
@@ -36,7 +35,8 @@ export interface InjectConfig {
 	getProperties: GetProperties;
 }
 
-export interface InjectionTarget extends Evented {
+export interface InjectionTarget {
+	invalidate(): void;
 	registry: RegistryHandler;
 }
 
@@ -47,7 +47,7 @@ function registerInjector(target: InjectionTarget, injector: Injector) {
 	}
 	if (registeredInjectors.indexOf(injector) === -1) {
 		injector.on('invalidate', () => {
-			target.emit({type: 'invalidated', target });
+			target.invalidate();
 		});
 		registeredInjectors.push(injector);
 	}
@@ -60,8 +60,8 @@ function registerInjector(target: InjectionTarget, injector: Injector) {
  *
  * @param InjectConfig the inject configuration
  */
-export function inject({ name, getProperties }: InjectConfig) {
-	return handleDecorator((target, propertyKey) => {
+export default function inject({ name, getProperties }: InjectConfig) {
+	return handleDecorator((target) => {
 		beforeProperties(function(this: InjectionTarget, properties: any) {
 			if (Array.isArray(name)) {
 				const payload = [];
@@ -84,5 +84,3 @@ export function inject({ name, getProperties }: InjectConfig) {
 		})(target);
 	});
 }
-
-export default inject;

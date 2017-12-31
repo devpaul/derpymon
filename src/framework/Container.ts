@@ -1,7 +1,7 @@
 import { WidgetBase } from '@dojo/widget-core/WidgetBase';
 import { Constructor, DNode, RegistryLabel } from '@dojo/widget-core/interfaces';
 import { w } from '@dojo/widget-core/d';
-import { inject, GetProperties } from './inject';
+import inject, { GetProperties } from './inject';
 
 export type Container<T extends WidgetBase> = Constructor<WidgetBase<Partial<T['properties']>>>;
 

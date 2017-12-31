@@ -3,7 +3,7 @@ import harness, { Harness } from '@dojo/test-extras/harness';
 import { v, w } from '@dojo/widget-core/d';
 import Outside, { OutsideProperties } from '../../../src/widgets/Outside';
 import ObjModel from '../../../src/widgets/ObjModel';
-import { Environment } from '../../../src/context/OutsideContext';
+import { Environment } from '../../../src/data/monsters';
 
 const { registerSuite } = intern.getInterface('object');
 

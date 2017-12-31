@@ -2,7 +2,7 @@ import AppContext, { ApplicationState } from '../context/AppContext';
 import registerHeightComponent from '../components/heightComponent';
 import AssetContext from '../context/AssetContext';
 import OutsideContext from '../context/OutsideContext';
-import monsters from '../configuration/monsters';
+import monsters from '../data/monsters';
 import registerMonsters from './registerMonsters';
 import randomizeEncounter from './randomizeEncounter';
 
