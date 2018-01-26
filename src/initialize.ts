@@ -9,6 +9,7 @@ import ReduxInjector from '@dojo/interop/redux/ReduxInjector';
 import keyboardMiddleware from './stores/middleware/keyboardMiddleware';
 import createInjectorMiddleware from './stores/middleware/injectorMiddleware';
 import thunk from 'redux-thunk';
+import Injector from '@dojo/widget-core/Injector';
 
 // Require globals
 require('aframe');
@@ -18,7 +19,8 @@ require('aframe-physics-system');
 export const enum State {
 	App = 'app-state',
 	Asset = 'assets',
-	Outside = 'outside'
+	Outside = 'outside',
+	Registry = 'registry'
 }
 
 export default function initialize() {
@@ -30,6 +32,7 @@ export default function initialize() {
 	registry.defineInjector(State.App, appContext);
 	registry.defineInjector(State.Asset, assetContext);
 	registry.defineInjector(State.Outside, outsideContext);
+	registry.defineInjector(State.Registry, new Injector(registry));
 
 	// Redux stuff
 	const store = createStore(derpymonReducer, applyMiddleware(

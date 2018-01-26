@@ -1,7 +1,7 @@
 import { Dispatch, Middleware } from 'redux';
 import { ActionType } from '../../actions/ActionType';
-import { Handle } from '@dojo/interfaces/core';
 import { removeDerpyball, throwDerpyball } from '../../actions/outside';
+import { Handle } from '@dojo/core/interfaces';
 
 let listenerHandle: Handle | undefined;
 
