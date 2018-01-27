@@ -1,21 +1,10 @@
 import Outside, { OutsideProperties } from '../widgets/Outside';
-import OutsideContext from '../context/OutsideContext';
-import { State } from '../initialize';
-import AssetContext from '../context/AssetContext';
-import { STORE_LABEL } from '../constants';
-import { Store } from 'redux';
+import { RegistryItems, State } from '../initialize';
 import { removeDerpyball } from '../actions/outside';
 import Container from '@dojo/widget-core/Container';
-import { throws } from '../util/throws';
-import AppContext from '../context/AppContext';
-import { ProxyRegistry } from '../framework/proxyRegistry';
 
 export default class OutsideContainer extends Container(Outside, State.Registry, {
-	getProperties(registry: ProxyRegistry): OutsideProperties {
-		const assets: AssetContext = registry[State.Asset] || throws();
-		const outside: OutsideContext = registry[State.Outside] || throws();
-		const store: Store<AppContext> = registry[STORE_LABEL] || throws();
-
+	getProperties({ assets, outside, store }: RegistryItems): OutsideProperties {
 		let monster: OutsideProperties['monster'];
 		const monsterInfo = outside.monster;
 		if (monsterInfo) {

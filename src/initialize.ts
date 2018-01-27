@@ -2,7 +2,7 @@ import Registry from '@dojo/widget-core/Registry';
 import AppContext from './context/AppContext';
 import AssetContext from './context/AssetContext';
 import OutsideContext from './context/OutsideContext';
-import { applyMiddleware, createStore } from 'redux';
+import { applyMiddleware, createStore, Store } from 'redux';
 import derpymonReducer from './stores/derpymonReducer';
 import { STORE_LABEL } from './constants';
 import ReduxInjector from '@dojo/interop/redux/ReduxInjector';
@@ -11,6 +11,7 @@ import createInjectorMiddleware from './stores/middleware/injectorMiddleware';
 import thunk from 'redux-thunk';
 import Injector from '@dojo/widget-core/Injector';
 import proxyRegistry from './framework/proxyRegistry';
+import { AppState } from './stores/configuration/initialState';
 
 // Require globals
 require('aframe');
@@ -18,10 +19,18 @@ require('aframe-environment-component');
 require('aframe-physics-system');
 
 export const enum State {
-	App = 'app-state',
+	App = 'app',
 	Asset = 'assets',
 	Outside = 'outside',
 	Registry = 'registry'
+}
+
+export interface RegistryItems {
+	app: AppContext;
+	assets: AssetContext;
+	outside: OutsideContext;
+	registry: Registry;
+	store: Store<AppState>;
 }
 
 export default function initialize() {

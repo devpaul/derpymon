@@ -1,1 +1,1 @@
-export const STORE_LABEL = 'derpymon-store';
+export const STORE_LABEL = 'store';
