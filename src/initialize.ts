@@ -10,6 +10,7 @@ import keyboardMiddleware from './stores/middleware/keyboardMiddleware';
 import createInjectorMiddleware from './stores/middleware/injectorMiddleware';
 import thunk from 'redux-thunk';
 import Injector from '@dojo/widget-core/Injector';
+import proxyRegistry from './framework/proxyRegistry';
 
 // Require globals
 require('aframe');
@@ -32,7 +33,7 @@ export default function initialize() {
 	registry.defineInjector(State.App, appContext);
 	registry.defineInjector(State.Asset, assetContext);
 	registry.defineInjector(State.Outside, outsideContext);
-	registry.defineInjector(State.Registry, new Injector(registry));
+	registry.defineInjector(State.Registry, new Injector(proxyRegistry(registry)));
 
 	// Redux stuff
 	const store = createStore(derpymonReducer, applyMiddleware(

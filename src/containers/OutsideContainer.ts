@@ -6,27 +6,27 @@ import { STORE_LABEL } from '../constants';
 import { Store } from 'redux';
 import { removeDerpyball } from '../actions/outside';
 import Container from '@dojo/widget-core/Container';
-import Registry from '@dojo/widget-core/Registry';
 import { throws } from '../util/throws';
 import AppContext from '../context/AppContext';
+import { ProxyRegistry } from '../framework/proxyRegistry';
 
 export default class OutsideContainer extends Container(Outside, State.Registry, {
-	getProperties(registry: Registry): OutsideProperties {
-		const outside: OutsideContext = (registry.getInjector(State.Outside) || throws()).get();
-		const asset: AssetContext = (registry.getInjector(State.Asset) || throws()).get();
-		const store: Store<AppContext> = (registry.getInjector(STORE_LABEL) || throws()).get();
+	getProperties(registry: ProxyRegistry): OutsideProperties {
+		const assets: AssetContext = registry[State.Asset] || throws();
+		const outside: OutsideContext = registry[State.Outside] || throws();
+		const store: Store<AppContext> = registry[STORE_LABEL] || throws();
 
 		let monster: OutsideProperties['monster'];
 		const monsterInfo = outside.monster;
 		if (monsterInfo) {
-			const assets = asset.getObjMtlAssets(monsterInfo.name);
-			if (assets && assets.obj && assets.mtl) {
+			const asset = assets.getObjMtlAssets(monsterInfo.name);
+			if (asset && asset.obj && asset.mtl) {
 				monster = {
 					distance: monsterInfo.distance,
 					height: monsterInfo.height,
-					mtl: `#${ assets.mtl.id }`,
+					mtl: `#${ asset.mtl.id }`,
 					name: monsterInfo.name,
-					obj: `#${ assets.obj.id }`
+					obj: `#${ asset.obj.id }`
 				};
 			}
 		}

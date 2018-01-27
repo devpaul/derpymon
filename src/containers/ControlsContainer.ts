@@ -6,13 +6,13 @@ import AppContext from '../context/AppContext';
 import { Store } from 'redux';
 import { throwDerpyball } from '../actions/outside';
 import Container from '@dojo/widget-core/Container';
-import Registry from '@dojo/widget-core/Registry';
 import { throws } from '../util/throws';
+import { ProxyRegistry } from '../framework/proxyRegistry';
 
 export default class ControlsContainer extends Container(Controls, State.Registry, {
-	getProperties(registry: Registry): ControlsProperties {
-		const app: AppContext = (registry.getInjector(State.App) || throws()).get();
-		const store: Store<AppContext> = (registry.getInjector(STORE_LABEL) || throws()).get();
+	getProperties(registry: ProxyRegistry): ControlsProperties {
+		const app: AppContext = registry[State.App] || throws();
+		const store: Store<AppContext> = registry[STORE_LABEL] || throws();
 
 		return {
 			onActionButtonPressed() {
