@@ -1,6 +1,7 @@
 import { Handle } from '@dojo/interfaces/core';
 import { createHandle } from '@dojo/core/lang';
 import { EventHandler } from '@dojo/widget-core/interfaces';
+// tslint:disable-next-line:variable-name
 const AFrame = require('aframe');
 
 export const componentName = 'poke-control';
@@ -15,10 +16,10 @@ export default function register() {
 		play() {
 			const el = this.el;
 			const events: { [key: string ]: EventHandler } = {
-				'trackpadup': (event: Event) => {
+				'trackpadup': (event?: Event) => {
 					this.onButtonUp(event);
 				},
-				'trackpaddown': (event: Event) => {
+				'trackpaddown': (event?: Event) => {
 					this.onButtonDown(event);
 				}
 			};

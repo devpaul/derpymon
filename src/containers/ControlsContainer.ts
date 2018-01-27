@@ -1,10 +1,12 @@
-import Container from '../framework/Container';
-import { ActionType, State } from '../initialize';
+import { RegistryItems, State } from '../initialize';
 import Controls, { ControlsProperties } from '../widgets/Controls';
 import { Throw } from '../context/OutsideContext';
+import { throwDerpyball } from '../actions/outside';
+import Container from '@dojo/widget-core/Container';
 
-const ControlsContainer = Container(Controls, [ State.App, State.Executor ], {
-	getProperties([ app, executor]): ControlsProperties {
+export default class ControlsContainer extends Container(Controls, State.Registry, {
+	getProperties({ app, store }: RegistryItems): ControlsProperties {
+
 		return {
 			onActionButtonPressed() {
 				console.log('pressed', app.state);
@@ -14,13 +16,11 @@ const ControlsContainer = Container(Controls, [ State.App, State.Executor ], {
 					position: [ 0, 3, -4],
 					speed: 1
 				};
-				executor.execute({ type: ActionType.ThrowDerpyball, payload: derpyball });
+				store.dispatch(throwDerpyball(derpyball));
 			},
 			onActionButtonReleased() {
 				console.log('released', app.state);
 			}
-		}
+		};
 	}
-});
-
-export default ControlsContainer;
+}) {}

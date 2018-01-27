@@ -1,5 +1,5 @@
-import MetaBase from "@dojo/widget-core/meta/Base";
-import * as THREE from "three"
+import MetaBase from '@dojo/widget-core/meta/Base';
+import * as THREE from 'three';
 import { Box3 } from 'three';
 
 export class BoundingBox extends MetaBase {

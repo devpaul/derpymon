@@ -1,30 +1,22 @@
 import Outside, { OutsideProperties } from '../widgets/Outside';
-import Container from '../framework/Container';
-import { throws } from '../util/properties';
-import OutsideContext from '../context/OutsideContext';
-import { ActionType, State } from '../initialize';
-import AssetContext from '../context/AssetContext';
-import Executor from '../framework/Executor';
+import { RegistryItems, State } from '../initialize';
+import { removeDerpyball } from '../actions/outside';
+import Container from '@dojo/widget-core/Container';
 
-const OutsideContainer = Container(Outside, [ State.Outside, State.Asset, State.Executor ], {
-	getProperties(payload: [ OutsideContext, AssetContext, Executor ]): OutsideProperties {
-		const [
-			outside = throws(),
-			appContext = throws(),
-			executor = throws()
-		] = payload;
+export default class OutsideContainer extends Container(Outside, State.Registry, {
+	getProperties({ assets, outside, store }: RegistryItems): OutsideProperties {
 		let monster: OutsideProperties['monster'];
 		const monsterInfo = outside.monster;
 		if (monsterInfo) {
-			const assets = appContext.getObjMtlAssets(monsterInfo.name);
-			if (assets && assets.obj && assets.mtl) {
+			const asset = assets.getObjMtlAssets(monsterInfo.name);
+			if (asset && asset.obj && asset.mtl) {
 				monster = {
 					distance: monsterInfo.distance,
 					height: monsterInfo.height,
-					mtl: `#${ assets.mtl.id }`,
+					mtl: `#${ asset.mtl.id }`,
 					name: monsterInfo.name,
-					obj: `#${ assets.obj.id }`
-				}
+					obj: `#${ asset.obj.id }`
+				};
 			}
 		}
 		return {
@@ -33,10 +25,8 @@ const OutsideContainer = Container(Outside, [ State.Outside, State.Asset, State.
 			monster,
 
 			removeDerpyball() {
-				executor.execute(ActionType.RemoveDerpyball);
+				store.dispatch(removeDerpyball());
 			}
-		}
+		};
 	}
-});
-
-export default OutsideContainer;
+}) {}

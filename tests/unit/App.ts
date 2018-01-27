@@ -1,29 +1,25 @@
-import * as registerSuite from 'intern/lib/interfaces/object';
-import { assert } from 'chai';
-import { VNode } from '@dojo/interfaces/vdom';
-import { spy, SinonSpy } from 'sinon';
-
 import App from './../../src/App';
-import Outside from '../../src/widgets/Outside';
+import { default as harness, Harness } from '@dojo/test-extras/harness';
+import { w } from '@dojo/widget-core/d';
+import SceneContainer from '../../src/containers/SceneContainer';
+import { DNode } from '@dojo/widget-core/interfaces';
 
-let helloWorldSpy: SinonSpy;
-let helloWorldSetPropertiesSpy: SinonSpy;
+const { registerSuite } = intern.getInterface('object');
 
-registerSuite({
-	name: 'App',
+let widget: Harness<App>;
+
+function expectedRender(): DNode {
+	return w(SceneContainer, {});
+}
+
+registerSuite('App', {
 	beforeEach() {
-		helloWorldSpy = spy(Outside);
-		helloWorldSetPropertiesSpy = spy(Outside.prototype, 'setProperties');
+		widget = harness(App);
 	},
 
-	afterEach() {
-		helloWorldSetPropertiesSpy.restore();
-	},
-
-	render() {
-		const app = new App();
-		const vnode = <VNode> app.__render__();
-		assert.equal(vnode.vnodeSelector, 'a-scene');
-		assert.equal(helloWorldSetPropertiesSpy.getCall(0).args[0].stranger, true);
+	tests: {
+		render() {
+			widget.expectRender(expectedRender());
+		}
 	}
 });

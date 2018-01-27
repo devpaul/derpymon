@@ -1,20 +1,18 @@
-import Container from '../framework/Container';
 import App, { AppProperties } from '../App';
-import AppContext from '../context/AppContext';
-import { ActionType, State } from '../initialize';
-import Executor from '../framework/Executor';
+import { RegistryItems, State } from '../initialize';
+import initialize from '../commands/initialize';
+import Container from '@dojo/widget-core/Container';
 
-const AppContainer = Container(App, [ State.App, State.Executor ], {
-	getProperties([ app, executor ]: [ AppContext, Executor ]): AppProperties {
+export default class AppContainer extends Container(App, State.Registry, {
+	getProperties({ app, assets, outside }: RegistryItems): AppProperties {
+
 		return {
 			isLoadingState: app.isLoadingState,
 			state: app.state,
 
 			initialize() {
-				executor.execute(ActionType.Initialize);
+				initialize(app, assets, outside);
 			}
-		}
+		};
 	}
-});
-
-export default AppContainer;
+}) {}

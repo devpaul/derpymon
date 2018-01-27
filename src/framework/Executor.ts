@@ -19,7 +19,7 @@ interface CommandMapping {
 }
 
 export interface CommandDescriptor extends CommandMapping {
-	type: string
+	type: string;
 }
 
 declare type InjectorState = Injector | Array<Injector | null> | null;

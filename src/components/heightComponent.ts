@@ -1,4 +1,5 @@
 import { Box3 } from 'three';
+// tslint:disable:variable-name
 const AFrame = require('aframe');
 
 export const objHeight = 'objheight';
@@ -36,7 +37,7 @@ export default function register() {
 				if (scale === 0) {
 					scale = zeroScale;
 				}
-				console.log(bounds, );
+				console.log(bounds);
 				// Scale to desired height
 				object3D.scale.set(scale, scale, scale);
 				// Place on the ground

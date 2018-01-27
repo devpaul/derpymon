@@ -1,21 +1,14 @@
-import { Action } from '../framework/Executor';
-import { MonsterConfigurationItem } from '../configuration/monsters';
+import { MonsterConfigurationItem } from '../data/monsters';
 import OutsideContext from '../context/OutsideContext';
-import { throws } from '../util/properties';
 import AssetContext from '../context/AssetContext';
 
-export type RegisterMonstersAction = Action<Array<MonsterConfigurationItem>, [ AssetContext, OutsideContext ]>;
-
-export default function registerMonsters({
-	payload: monsters = throws(),
-	state: [ appContext, outsideContext ] = throws()
-}: RegisterMonstersAction) {
+export default function registerMonsters(monsters: MonsterConfigurationItem[], assets: AssetContext, outsideContext: OutsideContext) {
 	for (let monster of monsters) {
-		appContext.addObjMtlAssets(monster.name, monster.obj, monster.mtl);
+		assets.addObjMtlAssets(monster.name, monster.assets.obj, monster.assets.mtl);
 		outsideContext.addMonster({
 			name: monster.name,
 			heights: monster.heights,
 			environment: monster.environment
 		});
 	}
-};
+}

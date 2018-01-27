@@ -1,16 +1,11 @@
 import { InjectorBase } from '../framework/InjectorBase';
 import { assign } from '@dojo/core/lang';
+import { Environment, MonsterDefinition } from '../data/monsters';
 
 interface Monster {
 	distance: number;
 	height: number;
 	name: string;
-}
-
-export const enum Environment {
-	Checkerboard = 'checkerboard',
-	Desert = 'egypt',
-	Forest = 'forest'
 }
 
 declare type Dimension3 = [ number, number, number ];
@@ -21,21 +16,6 @@ export interface Throw {
 	position: Dimension3;
 	speed: number;
 	thrownTime?: number;
-}
-
-/**
- * Defines a monster's traits
- */
-export interface MonsterDefinition {
-	/** environment where the monster appears */
-	environment: Environment;
-	/** the range of heights for this monster */
-	heights: {
-		min: number,
-		max: number
-	};
-	/** The name of the monster */
-	name: string;
 }
 
 export default class OutsideContext extends InjectorBase {
@@ -80,7 +60,7 @@ export default class OutsideContext extends InjectorBase {
 				initialTime: value.initialTime || performance.now(),
 				position: <Dimension3> Array.from(value.position),
 				speed: value.speed
-			}
+			};
 		}
 	}
 

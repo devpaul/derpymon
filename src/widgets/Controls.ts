@@ -1,10 +1,10 @@
 import { v } from '@dojo/widget-core/d';
-import { DNode, EventHandler, WidgetProperties } from '@dojo/widget-core/interfaces';
+import { DNode, EventHandler } from '@dojo/widget-core/interfaces';
 import { WidgetBase } from '@dojo/widget-core/WidgetBase';
 
 export interface ControlsProperties {
-	onActionButtonPressed?: EventHandler,
-	onActionButtonReleased?: EventHandler
+	onActionButtonPressed?: EventHandler;
+	onActionButtonReleased?: EventHandler;
 }
 
 export default class Controls extends WidgetBase<ControlsProperties> {

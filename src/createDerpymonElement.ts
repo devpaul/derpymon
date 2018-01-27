@@ -11,5 +11,5 @@ export default function createDerpymonElement(): CustomElementDescriptor {
 		initialization() {
 			return initialize();
 		}
-	}
+	};
 }

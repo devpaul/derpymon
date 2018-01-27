@@ -1,15 +1,17 @@
 import Registry from '@dojo/widget-core/Registry';
 import AppContext from './context/AppContext';
-import OutsideContext from './context/OutsideContext';
-import Executor from './framework/Executor';
-import initializeApp from './commands/initialize';
-import loadMonsters from './commands/loadMonsters';
-import randomizeEncounter from './commands/randomizeEncounter';
-import registerMonsters from './commands/registerMonsters';
 import AssetContext from './context/AssetContext';
-import loadedMonsters from './commands/loadedMonsters';
-import removeDerpyball from './commands/removeDerpyball';
-import throwDerpyball from './commands/throwDerpyball';
+import OutsideContext from './context/OutsideContext';
+import { applyMiddleware, createStore, Store } from 'redux';
+import derpymonReducer from './stores/derpymonReducer';
+import { STORE_LABEL } from './constants';
+import ReduxInjector from '@dojo/interop/redux/ReduxInjector';
+import keyboardMiddleware from './stores/middleware/keyboardMiddleware';
+import createInjectorMiddleware from './stores/middleware/injectorMiddleware';
+import thunk from 'redux-thunk';
+import Injector from '@dojo/widget-core/Injector';
+import proxyRegistry from './framework/proxyRegistry';
+import { AppState } from './stores/configuration/initialState';
 
 // Require globals
 require('aframe');
@@ -17,41 +19,38 @@ require('aframe-environment-component');
 require('aframe-physics-system');
 
 export const enum State {
-	App = 'app-state',
+	App = 'app',
 	Asset = 'assets',
-	Executor = 'executor',
-	Outside = 'outside'
+	Outside = 'outside',
+	Registry = 'registry'
 }
 
-export const enum ActionType {
-	Initialize = 'initialize',
-	LoadedMonsters = 'loadedMonsters',
-	LoadMonsters = 'loadMonsters',
-	RandomizeEncounter = 'randomizeEncounter',
-	RegisterMonsters = 'registerMonsters',
-	RemoveDerpyball = 'removeDerpyball',
-	ThrowDerpyball = 'throwDerpyball'
+export interface RegistryItems {
+	app: AppContext;
+	assets: AssetContext;
+	outside: OutsideContext;
+	registry: Registry;
+	store: Store<AppState>;
 }
 
 export default function initialize() {
 	const registry = new Registry();
-	const executor = new Executor(registry, [
-		{ type: ActionType.Initialize, handler: initializeApp, state: [ State.App, State.Executor ] },
-		{ type: ActionType.LoadedMonsters, handler: loadedMonsters, state: [ State.App, State.Executor ] },
-		{ type: ActionType.LoadMonsters, handler: loadMonsters, state: State.Executor },
-		{ type: ActionType.RandomizeEncounter, handler: randomizeEncounter, state: State.Outside },
-		{ type: ActionType.RegisterMonsters, handler: registerMonsters, state: [ State.Asset, State.Outside ] },
-		{ type: ActionType.RemoveDerpyball, handler: removeDerpyball, state: State.Outside },
-		{ type: ActionType.ThrowDerpyball, handler: throwDerpyball, state: State.Outside }
-	]);
 	const appContext = new AppContext();
 	const assetContext = new AssetContext();
 	const outsideContext = new OutsideContext();
 
 	registry.defineInjector(State.App, appContext);
 	registry.defineInjector(State.Asset, assetContext);
-	registry.defineInjector(State.Executor, executor);
 	registry.defineInjector(State.Outside, outsideContext);
+	registry.defineInjector(State.Registry, new Injector(proxyRegistry(registry)));
+
+	// Redux stuff
+	const store = createStore(derpymonReducer, applyMiddleware(
+		thunk,
+		keyboardMiddleware,
+		createInjectorMiddleware(registry)
+	));
+	registry.defineInjector(STORE_LABEL, new ReduxInjector(store));
 
 	return registry;
 }
